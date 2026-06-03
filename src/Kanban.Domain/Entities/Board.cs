@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Kanban.Domain.Entities;
 
 public class Board

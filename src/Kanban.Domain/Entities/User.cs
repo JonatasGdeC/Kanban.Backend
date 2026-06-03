@@ -1,5 +1,3 @@
-using System;
-
 namespace Kanban.Domain.Entities;
 
 public class User

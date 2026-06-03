@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Kanban.Domain.Enums;
 
 namespace Kanban.Domain.Entities;
@@ -13,4 +11,5 @@ public class TaskEntity
     public int Order { get; set; }
     public List<SubTask> SubTasks { get; set; } = [];
     public required Guid ColumnId { get; set; }
+    public required Column Column { get; set; }
 }

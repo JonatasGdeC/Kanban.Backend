@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Kanban.Domain.Entities;
 
 public class Column
@@ -12,4 +9,5 @@ public class Column
     public List<TaskEntity> Tasks { get; set; } = [];
     
     public required Guid BoardId { get; set; }
+    public required Board Board { get; set; }
 }
