@@ -2,12 +2,14 @@ using Kanban.Application.UseCase.Board.Register;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Communication.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kanban.Api.Controllers;
 
 [Route(template: "[controller]")]
 [ApiController]
+[Authorize]
 public class BoardController : ControllerBase
 {
     [HttpPost]

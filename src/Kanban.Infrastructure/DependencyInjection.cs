@@ -3,13 +3,19 @@ using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Repositories.SubTask;
 using Kanban.Domain.Repositories.Task;
+using Kanban.Domain.Security.Cryptography;
+using Kanban.Domain.Security.Tokens;
+using Kanban.Domain.Services.LoggedUser;
 using Kanban.Infrastructure.DataAccess;
 using Kanban.Infrastructure.DataAccess.Repositories;
+using Kanban.Infrastructure.Security.Tokens;
+using Kanban.Infrastructure.Services.LoggedUser;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kanban.Infrastructure;
+using Security.Cryptography;
 
 public static class DependencyInjection
 {
@@ -17,11 +23,24 @@ public static class DependencyInjection
     {
         AddRepositories(services: services);
         AddDbContext(services: services, connectionString: configurationManager.GetConnectionString(name: "connection")!);
+        AddToken(services: services, configurationManager: configurationManager);
+        
+        services.AddScoped<IPasswordEncrypter, BCrypt>();
+        services.AddScoped<ILoggedUser, LoggedUser>();
     }
 
     private static void AddDbContext(IServiceCollection services, string connectionString)
     {
         services.AddDbContext<KanbanDbContext>(optionsAction: options => options.UseNpgsql(connectionString: connectionString));
+    }
+    
+    private static void AddToken(IServiceCollection services, IConfigurationManager configurationManager)
+    {
+        IConfigurationSection expirationTimeMinutes = configurationManager.GetSection(key: "Settings:Jwt:ExpiresMinutes");
+        IConfigurationSection signingKey = configurationManager.GetSection(key: "Settings:Jwt:SigningKey");
+
+        services.AddScoped<IAccessTokenGenerator>(implementationFactory: _ =>
+            new JwtTokenGenerator(expirationTimeMinutes: uint.Parse(s: expirationTimeMinutes.Value!) , signingKey: signingKey.Value!));
     }
 
     private static void AddRepositories(IServiceCollection services)
