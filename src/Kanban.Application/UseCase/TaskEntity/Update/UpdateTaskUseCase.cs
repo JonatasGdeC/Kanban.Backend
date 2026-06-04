@@ -1,0 +1,55 @@
+using AutoMapper;
+using FluentValidation.Results;
+using Kanban.Communication.Requests.Task;
+using Kanban.Domain.Repositories;
+using Kanban.Domain.Repositories.Task;
+using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception.ExceptionBase;
+
+namespace Kanban.Application.UseCase.TaskEntity.Update;
+using Domain.Entities;
+
+public class UpdateTaskUseCase(
+    ITaskWriteRepository writeRepository,
+    ITaskReadRepository readRepository,
+    ILoggedUser loggedUser,
+    IMapper mapper,
+    IUnitOfWork unitOfWork) : IUpdateTaskUseCase
+{
+    public async Task Execute(Guid id, UpdateTaskRequest request)
+    {
+        TaskEntity task = await GetValidatedTask(id: id, request: request);
+
+        mapper.Map(source: request, destination: task);
+
+        writeRepository.Update(task: task);
+        await unitOfWork.Commit();
+    }
+
+    private async Task<TaskEntity> GetValidatedTask(Guid id, UpdateTaskRequest request)
+    {
+        TaskValidator validator = new();
+        ValidationResult? result = await validator.ValidateAsync(instance: request);
+
+        if (!result.IsValid)
+        {
+            List<string> errors = result.Errors.Select(selector: error => error.ErrorMessage).ToList();
+            throw new ErrorOnValidationException(errorsMessages: errors);
+        }
+
+        User user = await loggedUser.Get();
+        TaskEntity? task = await writeRepository.GetById(id: id, userId: user.Id);
+        if (task == null)
+        {
+            throw new NotFoundException(message: "Task not found");
+        }
+
+        bool existsTaskInPosition = await readRepository.ExistsTaskInPosition(columnId: task.ColumnId, position: request.Order, ignoreTaskId: id);
+        if (existsTaskInPosition)
+        {
+            throw new ErrorOnValidationException(errorsMessages: ["There is already a task in that position."]);
+        }
+
+        return task;
+    }
+}

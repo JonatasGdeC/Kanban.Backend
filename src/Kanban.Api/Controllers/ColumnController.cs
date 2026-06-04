@@ -34,7 +34,9 @@ public class ColumnController : ControllerBase
     {
         GetAllColumnsResponse response = await useCase.Execute(boardId: boardId);
         if (response.ListColumns.Count > 0)
+        {
             return Ok(value: response);
+        }
 
         return NoContent();
     }

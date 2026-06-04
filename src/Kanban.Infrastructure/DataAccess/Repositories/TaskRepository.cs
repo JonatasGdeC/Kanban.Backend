@@ -34,8 +34,14 @@ public class TaskRepository(KanbanDbContext context) : ITaskReadRepository, ITas
 
     async Task<TaskEntity?> ITaskReadRepository.GetById(Guid id, Guid userId)
     {
-        return await context.Tasks.AsNoTracking() 
+        return await context.Tasks.AsNoTracking()
             .Include(navigationPropertyPath: task => task.SubTasks)
             .FirstOrDefaultAsync(predicate: task => task.Id == id && task.Column.Board.UserId == userId);
+    }
+
+    public async Task<bool> ExistsTaskInPosition(Guid columnId, int position, Guid ignoreTaskId)
+    {
+        return await context.Tasks.AsNoTracking()
+            .AnyAsync(predicate: task => task.ColumnId == columnId && task.Order == position && task.Id != ignoreTaskId);
     }
 }
