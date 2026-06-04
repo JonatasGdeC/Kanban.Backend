@@ -33,6 +33,9 @@ public class BoardRepository(KanbanDbContext context) : IBoardReadRepository, IB
 
     async Task<Board?> IBoardReadRepository.GetById(Guid id, Guid userId)
     {
-        return await context.Boards.AsNoTracking().FirstOrDefaultAsync(predicate: board => board.Id == id && board.UserId == userId);
+        return await context.Boards
+            .AsNoTracking()
+            .Include(navigationPropertyPath: board => board.Columns)
+            .FirstOrDefaultAsync(predicate: board => board.Id == id && board.UserId == userId);
     }
 }

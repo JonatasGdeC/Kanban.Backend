@@ -33,6 +33,8 @@ public class ColumnRepository(KanbanDbContext context) : IColumnReadRepository, 
 
     async Task<Column?> IColumnReadRepository.GetById(Guid id, Guid userId)
     {
-        return await context.Columns.AsNoTracking().FirstOrDefaultAsync(predicate: column => column.Id == id && column.Board.UserId == userId);
+        return await context.Columns.AsNoTracking()
+            .Include(navigationPropertyPath: column => column.Tasks)
+            .FirstOrDefaultAsync(predicate: column => column.Id == id && column.Board.UserId == userId);
     }
 }
