@@ -2,6 +2,7 @@ using AutoMapper;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Communication.Requests.Column;
+using Kanban.Communication.Requests.SubTask;
 using Kanban.Communication.Requests.Task;
 
 namespace Kanban.Application.AutoMapping;
@@ -22,6 +23,8 @@ public class AutoMapping : Profile
         CreateMap<UpdateColumnRequest, Column>();
         CreateMap<RegisterTaskRequest, TaskEntity>();
         CreateMap<UpdateTaskRequest, TaskEntity>();
+        CreateMap<RegisterSubTaskRequest, SubTask>();
+        CreateMap<UpdateSubTaskRequest, SubTask>();
     }
     
     private void EntityToResponse()

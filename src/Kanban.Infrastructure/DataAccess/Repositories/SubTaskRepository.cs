@@ -8,7 +8,9 @@ public class SubTaskRepository(KanbanDbContext context) : ISubTaskReadRepository
 {
     public async Task<List<SubTask>> GetAll(Guid taskId, Guid userId)
     {
-        return await context.SubTasks.AsNoTracking().Where(predicate: subTask => subTask.TaskId == taskId && subTask.Task.Column.Board.UserId == userId).ToListAsync();
+        return await context.SubTasks.AsNoTracking()
+            .Where(predicate: subTask => subTask.TaskId == taskId && subTask.Task.Column.Board.UserId == userId)
+            .ToListAsync();
     }
 
     public async Task Add(SubTask subTask)
@@ -26,8 +28,15 @@ public class SubTaskRepository(KanbanDbContext context) : ISubTaskReadRepository
         context.SubTasks.Remove(entity: subTask);
     }
 
-    public async Task<SubTask?> GetById(Guid id, Guid userId)
+    async Task<SubTask?> ISubTaskWriteRepository.GetById(Guid id, Guid userId)
     {
-        return await context.SubTasks.AsNoTracking().FirstOrDefaultAsync(predicate: subTask => subTask.Id == id && subTask.Task.Column.Board.UserId == userId);
+        return await context.SubTasks
+            .FirstOrDefaultAsync(predicate: subTask => subTask.Id == id && subTask.Task.Column.Board.UserId == userId);
+    }
+
+    async Task<SubTask?> ISubTaskReadRepository.GetById(Guid id, Guid userId)
+    {
+        return await context.SubTasks.AsNoTracking()
+            .FirstOrDefaultAsync(predicate: subTask => subTask.Id == id && subTask.Task.Column.Board.UserId == userId);
     }
 }

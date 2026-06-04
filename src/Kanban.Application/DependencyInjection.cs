@@ -13,6 +13,10 @@ using Kanban.Application.UseCase.TaskEntity.GetAll;
 using Kanban.Application.UseCase.TaskEntity.GetById;
 using Kanban.Application.UseCase.TaskEntity.Register;
 using Kanban.Application.UseCase.TaskEntity.Update;
+using Kanban.Application.UseCase.SubTask.Delete;
+using Kanban.Application.UseCase.SubTask.GetAll;
+using Kanban.Application.UseCase.SubTask.Register;
+using Kanban.Application.UseCase.SubTask.Update;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kanban.Application;
@@ -49,5 +53,10 @@ public static class DependencyInjection
         services.AddScoped<IGetTaskByIdUseCase, GetTaskByIdUseCase>();
         services.AddScoped<IRegisterTaskUseCase, RegisterTaskUseCase>();
         services.AddScoped<IUpdateTaskUseCase, UpdateTaskUseCase>();
+
+        services.AddScoped<IDeleteSubTaskUseCase, DeleteSubTaskUseCase>();
+        services.AddScoped<IGetAllSubTasksUseCase, GetAllSubTasksUseCase>();
+        services.AddScoped<IRegisterSubTaskUseCase, RegisterSubTaskUseCase>();
+        services.AddScoped<IUpdateSubTaskUseCase, UpdateSubTaskUseCase>();
     }
 }
