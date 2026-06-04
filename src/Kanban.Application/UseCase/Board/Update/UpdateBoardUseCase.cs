@@ -16,6 +16,7 @@ public class UpdateBoardUseCase(
     public async Task Execute(Guid id, RegisterBoardRequest request)
     {
         Board board = await GetValidatedBoard(id: id, request: request);
+        board.Name = request.Name;
         
         writeRepository.Update(board: board);
         await unitOfWork.Commit();

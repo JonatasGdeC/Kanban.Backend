@@ -10,6 +10,6 @@ public class BoardValidator : AbstractValidator<RegisterBoardRequest>
         RuleFor(expression: request => request.Name)
             .NotEmpty().WithMessage(errorMessage: "Name is required")
             .MinimumLength(minimumLength: 3).WithMessage(errorMessage: "Name must be at least 3 characters.")
-            .MaximumLength(maximumLength: 500).WithMessage(errorMessage: "Name must be at most 500 characters.");
+            .MaximumLength(maximumLength: 200).WithMessage(errorMessage: "Name must be at most 200 characters.");
     }
 }

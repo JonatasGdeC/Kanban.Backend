@@ -1,6 +1,7 @@
 using AutoMapper;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
+using Kanban.Communication.Requests.Column;
 
 namespace Kanban.Application.AutoMapping;
 using Domain.Entities;
@@ -16,6 +17,8 @@ public class AutoMapping : Profile
     private void RequestToEntity()
     {
         CreateMap<RegisterBoardRequest, Board>();
+        CreateMap<RegisterColumnRequest, Column>();
+        CreateMap<UpdateColumnRequest, Column>();
     }
     
     private void EntityToResponse()

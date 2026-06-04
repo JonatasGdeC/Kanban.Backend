@@ -42,7 +42,6 @@ public class RegisterBoardUseCase(
             result.Errors.Add(item: new ValidationFailure(propertyName: string.Empty, errorMessage: "Board already exists"));
         }
         
-        
         if (!result.IsValid)
         {
             List<string> errors = result.Errors.Select(selector: error => error.ErrorMessage).ToList();
