@@ -1,3 +1,4 @@
+using Kanban.Application;
 using Kanban.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
@@ -5,6 +6,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(configurationManager: builder.Configuration);
+builder.Services.AddApplication();
 
 WebApplication app = builder.Build();
 
@@ -14,6 +16,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.MapControllers();
 
 app.Run();

@@ -1,3 +1,4 @@
+using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Repositories.SubTask;
@@ -25,6 +26,7 @@ public static class DependencyInjection
 
     private static void AddRepositories(IServiceCollection services)
     {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IBoardReadRepository, BoardRepository>();
         services.AddScoped<IBoardWriteRepository, BoardRepository>();
         services.AddScoped<IColumnReadRepository, ColumnRepository>();
