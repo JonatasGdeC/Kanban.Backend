@@ -4,6 +4,7 @@ using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Boad;
+using Kanban.Domain.Services.LoggedUser;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.Board.Register;
@@ -13,13 +14,18 @@ public class RegisterBoardUseCase(
     IBoardReadRepository readRepository, 
     IBoardWriteRepository whiteRepository,
     IUnitOfWork unitOfWork,
-    IMapper mapper) : IRegisterBoardUseCase
+    IMapper mapper,
+    ILoggedUser loggedUser) : IRegisterBoardUseCase
 {
     public async Task<BoardDto> Execute(RegisterBoardRequest request)
     {
         await Validate(request: request);
         
+        User user = await loggedUser.Get();
+        
         Board board = mapper.Map<Board>(source: request);
+        board.UserId = user.Id;
+        
         await whiteRepository.Add(board: board);
         await unitOfWork.Commit();
         
