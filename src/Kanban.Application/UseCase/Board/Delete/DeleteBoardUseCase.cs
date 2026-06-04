@@ -1,6 +1,7 @@
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.Board.Delete;
@@ -22,7 +23,7 @@ public class DeleteBoardUseCase(IBoardWriteRepository writeRepository, ILoggedUs
 
         if (board == null)
         {
-            throw new NotFoundException(message: "Board not found");
+            throw new NotFoundException(message: ResourceErrorMessage.BOARD_NOT_FOUND);
         }
         
         return board;

@@ -1,6 +1,7 @@
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.Column.Delete;
@@ -25,7 +26,7 @@ public class DeleteColumnUseCase(
 
         if (column == null)
         {
-            throw new NotFoundException(message: "Column not found");
+            throw new NotFoundException(message: ResourceErrorMessage.COLUMN_NOT_FOUND);
         }
 
         return column;

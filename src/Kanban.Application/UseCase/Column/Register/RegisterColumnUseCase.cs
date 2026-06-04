@@ -6,6 +6,7 @@ using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.Column.Register;
@@ -49,7 +50,7 @@ public class RegisterColumnUseCase(
         Board? board = await readBoardRepository.GetById(id: boardId, userId: userId);
         if (board == null)
         {
-            throw new NotFoundException(message: "Board not found");
+            throw new NotFoundException(message: ResourceErrorMessage.BOARD_NOT_FOUND);
         }
     }
 }

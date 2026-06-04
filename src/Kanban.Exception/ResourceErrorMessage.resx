@@ -21,4 +21,43 @@
     <data name="UNKNOWN_ERROR" xml:space="preserve">
         <value>Unknown error.</value>
     </data>
+    <data name="NAME_IS_REQUIRED" xml:space="preserve">
+        <value>Name is required.</value>
+    </data>
+    <data name="NAME_MINIMUM_LENGTH" xml:space="preserve">
+        <value>Name must be at least 3 characters.</value>
+    </data>
+    <data name="NAME_MAXIMUM_LENGTH" xml:space="preserve">
+        <value>Name must be at most 200 characters.</value>
+    </data>
+    <data name="BOARD_NOT_FOUND" xml:space="preserve">
+        <value>Board not found.</value>
+    </data>
+    <data name="BOARD_ALREADY_EXISTS" xml:space="preserve">
+        <value>Board already exists.</value>
+    </data>
+    <data name="COLUMN_NOT_FOUND" xml:space="preserve">
+        <value>Column not found.</value>
+    </data>
+    <data name="COLUMN_ALREADY_IN_POSITION" xml:space="preserve">
+        <value>There is already a column in that position.</value>
+    </data>
+    <data name="TASK_NOT_FOUND" xml:space="preserve">
+        <value>Task not found.</value>
+    </data>
+    <data name="TASK_ALREADY_IN_POSITION" xml:space="preserve">
+        <value>There is already a task in that position.</value>
+    </data>
+    <data name="SUBTASK_NOT_FOUND" xml:space="preserve">
+        <value>SubTask not found.</value>
+    </data>
+    <data name="COLOR_IS_REQUIRED" xml:space="preserve">
+        <value>Color is required.</value>
+    </data>
+    <data name="COLOR_INVALID_HEX" xml:space="preserve">
+        <value>Color must be a valid hex color (e.g. #FFF or #FFFFFF).</value>
+    </data>
+    <data name="STATUS_INVALID" xml:space="preserve">
+        <value>Status must be a valid enum value.</value>
+    </data>
 </root>

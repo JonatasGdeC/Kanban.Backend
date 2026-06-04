@@ -5,6 +5,7 @@ using Kanban.Communication.Requests.Board;
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.Board.Register;
@@ -39,7 +40,7 @@ public class RegisterBoardUseCase(
         Board? boardExists = await readRepository.GetByTitle(title: request.Name, userId: userId);
         if (boardExists != null)
         {
-            result.Errors.Add(item: new ValidationFailure(propertyName: string.Empty, errorMessage: "Board already exists"));
+            result.Errors.Add(item: new ValidationFailure(propertyName: string.Empty, errorMessage: ResourceErrorMessage.BOARD_ALREADY_EXISTS));
         }
         
         if (!result.IsValid)

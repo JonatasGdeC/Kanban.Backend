@@ -4,6 +4,7 @@ using Kanban.Communication.Responses.Task;
 using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Repositories.Task;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.TaskEntity.GetAll;
@@ -33,7 +34,7 @@ public class GetAllTasksUseCase(
         Column? column = await readColumnRepository.GetById(id: columnId, userId: userId);
         if (column == null)
         {
-            throw new NotFoundException(message: "Column not found");
+            throw new NotFoundException(message: ResourceErrorMessage.COLUMN_NOT_FOUND);
         }
     }
 }

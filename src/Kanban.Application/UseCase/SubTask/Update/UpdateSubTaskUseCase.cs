@@ -4,6 +4,7 @@ using Kanban.Communication.Requests.SubTask;
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.SubTask;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.SubTask.Update;
@@ -40,7 +41,7 @@ public class UpdateSubTaskUseCase(
         SubTask? subTask = await writeRepository.GetById(id: id, userId: user.Id);
         if (subTask == null)
         {
-            throw new NotFoundException(message: "SubTask not found");
+            throw new NotFoundException(message: ResourceErrorMessage.SUBTASK_NOT_FOUND);
         }
 
         return subTask;

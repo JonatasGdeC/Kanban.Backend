@@ -4,6 +4,7 @@ using Kanban.Communication.Requests.Task;
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Task;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.TaskEntity.Update;
@@ -41,13 +42,13 @@ public class UpdateTaskUseCase(
         TaskEntity? task = await writeRepository.GetById(id: id, userId: user.Id);
         if (task == null)
         {
-            throw new NotFoundException(message: "Task not found");
+            throw new NotFoundException(message: ResourceErrorMessage.TASK_NOT_FOUND);
         }
 
         bool existsTaskInPosition = await readRepository.ExistsTaskInPosition(columnId: task.ColumnId, position: request.Order, ignoreTaskId: id);
         if (existsTaskInPosition)
         {
-            throw new ErrorOnValidationException(errorsMessages: ["There is already a task in that position."]);
+            throw new ErrorOnValidationException(errorsMessages: [ResourceErrorMessage.TASK_ALREADY_IN_POSITION]);
         }
 
         return task;

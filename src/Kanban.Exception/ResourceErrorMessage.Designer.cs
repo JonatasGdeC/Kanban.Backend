@@ -60,6 +60,123 @@ namespace Kanban.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Board already exists..
+        /// </summary>
+        public static string BOARD_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("BOARD_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Board not found..
+        /// </summary>
+        public static string BOARD_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("BOARD_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color must be a valid hex color (e.g. #FFF or #FFFFFF)..
+        /// </summary>
+        public static string COLOR_INVALID_HEX {
+            get {
+                return ResourceManager.GetString("COLOR_INVALID_HEX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color is required..
+        /// </summary>
+        public static string COLOR_IS_REQUIRED {
+            get {
+                return ResourceManager.GetString("COLOR_IS_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is already a column in that position..
+        /// </summary>
+        public static string COLUMN_ALREADY_IN_POSITION {
+            get {
+                return ResourceManager.GetString("COLUMN_ALREADY_IN_POSITION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column not found..
+        /// </summary>
+        public static string COLUMN_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("COLUMN_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name is required..
+        /// </summary>
+        public static string NAME_IS_REQUIRED {
+            get {
+                return ResourceManager.GetString("NAME_IS_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be at most 200 characters..
+        /// </summary>
+        public static string NAME_MAXIMUM_LENGTH {
+            get {
+                return ResourceManager.GetString("NAME_MAXIMUM_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be at least 3 characters..
+        /// </summary>
+        public static string NAME_MINIMUM_LENGTH {
+            get {
+                return ResourceManager.GetString("NAME_MINIMUM_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status must be a valid enum value..
+        /// </summary>
+        public static string STATUS_INVALID {
+            get {
+                return ResourceManager.GetString("STATUS_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SubTask not found..
+        /// </summary>
+        public static string SUBTASK_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("SUBTASK_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is already a task in that position..
+        /// </summary>
+        public static string TASK_ALREADY_IN_POSITION {
+            get {
+                return ResourceManager.GetString("TASK_ALREADY_IN_POSITION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task not found..
+        /// </summary>
+        public static string TASK_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("TASK_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown error..
         /// </summary>
         public static string UNKNOWN_ERROR {

@@ -3,6 +3,7 @@ using Kanban.Communication.Dtos;
 using Kanban.Communication.Responses.Board;
 using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.Board.GetById;
@@ -31,7 +32,7 @@ public class GetBoardByIdUseCase(
 
         if (board == null)
         {
-            throw new NotFoundException(message: "Board not found");
+            throw new NotFoundException(message: ResourceErrorMessage.BOARD_NOT_FOUND);
         }
         
         return board;

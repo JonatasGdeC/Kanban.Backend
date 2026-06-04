@@ -4,6 +4,7 @@ using Kanban.Communication.Requests.Column;
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
 namespace Kanban.Application.UseCase.Column.Update;
@@ -41,13 +42,13 @@ public class UpdateColumnUseCase(
         Column? column = await writeRepository.GetById(id: id, userId: user.Id);
         if (column == null)
         {
-            throw new NotFoundException(message: "Column not found");
+            throw new NotFoundException(message: ResourceErrorMessage.COLUMN_NOT_FOUND);
         }
 
-        bool existsColumnThisPosition = await readRepository.ExistsColumnInPosition (boardId: column.BoardId, position: request.Order, ignoreColumnId: id);
+        bool existsColumnThisPosition = await readRepository.ExistsColumnInPosition(boardId: column.BoardId, position: request.Order, ignoreColumnId: id);
         if (existsColumnThisPosition)
         {
-            throw new ErrorOnValidationException(errorsMessages: ["There is already a column in that position."]);
+            throw new ErrorOnValidationException(errorsMessages: [ResourceErrorMessage.COLUMN_ALREADY_IN_POSITION]);
         }
         
         return column;
