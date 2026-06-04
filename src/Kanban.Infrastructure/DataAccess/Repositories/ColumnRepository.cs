@@ -31,10 +31,9 @@ public class ColumnRepository(KanbanDbContext context) : IColumnReadRepository, 
         return await context.Columns.FirstOrDefaultAsync(predicate: column => column.Id == id && column.Board.UserId == userId);
     }
 
-    public async Task<bool> ExistsColumnThisPosition(Guid boardId, int position, Guid ignoreColumnId)
+    public async Task<bool> ExistsColumnInPosition (Guid boardId, int position, Guid ignoreColumnId)
     {
-        Column? column = await context.Columns.FirstOrDefaultAsync(predicate: column => column.BoardId == boardId && column.Order == position && column.Id != ignoreColumnId);
-        return column != null;
+        return await context.Columns.AsNoTracking().AnyAsync(predicate: column => column.BoardId == boardId && column.Order == position && column.Id != ignoreColumnId);
     }
 
     async Task<Column?> IColumnReadRepository.GetById(Guid id, Guid userId)

@@ -44,7 +44,7 @@ public class UpdateColumnUseCase(
             throw new NotFoundException(message: "Column not found");
         }
 
-        bool existsColumnThisPosition = await readRepository.ExistsColumnThisPosition(boardId: column.BoardId, position: request.Order, ignoreColumnId: id);
+        bool existsColumnThisPosition = await readRepository.ExistsColumnInPosition (boardId: column.BoardId, position: request.Order, ignoreColumnId: id);
         if (existsColumnThisPosition)
         {
             throw new ErrorOnValidationException(errorsMessages: ["There is already a column in that position."]);
