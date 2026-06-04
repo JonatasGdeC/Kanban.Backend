@@ -19,9 +19,8 @@ public class RegisterBoardUseCase(
 {
     public async Task<BoardDto> Execute(RegisterBoardRequest request)
     {
-        await Validate(request: request);
-        
         User user = await loggedUser.Get();
+        await Validate(request: request, userId: user.Id);
         
         Board board = mapper.Map<Board>(source: request);
         board.UserId = user.Id;
@@ -32,12 +31,12 @@ public class RegisterBoardUseCase(
         return mapper.Map<BoardDto>(source: board);
     }
 
-    private async Task Validate(RegisterBoardRequest request)
+    private async Task Validate(RegisterBoardRequest request, Guid userId)
     {
         BoardValidator boardValidator = new();
-        ValidationResult? result = boardValidator.Validate(instance: request);
+        ValidationResult? result = await boardValidator.ValidateAsync(instance: request);
 
-        Board? boardExists = await readRepository.GetByTitle(title: request.Name, userId: Guid.NewGuid());
+        Board? boardExists = await readRepository.GetByTitle(title: request.Name, userId: userId);
         if (boardExists != null)
         {
             result.Errors.Add(item: new ValidationFailure(propertyName: string.Empty, errorMessage: "Board already exists"));

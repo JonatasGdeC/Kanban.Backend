@@ -1,4 +1,5 @@
 using AutoMapper;
+using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.Board;
 
 namespace Kanban.Application.AutoMapping;
@@ -19,5 +20,9 @@ public class AutoMapping : Profile
     
     private void EntityToResponse()
     {
+        CreateMap<Board, BoardDto>();
+        CreateMap<Column, ColumnDto>();
+        CreateMap<TaskEntity, TaskDto>();
+        CreateMap<SubTask, SubTaskDto>();
     }
 }
