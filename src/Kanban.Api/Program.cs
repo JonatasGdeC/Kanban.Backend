@@ -1,15 +1,23 @@
+using System.Text;
+using Kanban.Api.Filter;
 using Kanban.Api.Token;
 using Kanban.Application;
 using Kanban.Domain.Security.Tokens;
 using Kanban.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
 builder.Services.AddOpenApi();
-
 builder.Services.AddInfrastructure(configurationManager: builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddControllers(configure: options =>
+{
+    options.Filters.Add(filterType: typeof(ExceptionFilter));
+});
 
 builder.Services.AddSwaggerGen(setupAction: config =>
 {
@@ -35,11 +43,32 @@ builder.Services.AddSwaggerGen(setupAction: config =>
     });
 });
 
-builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthentication(configureOptions: options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(configureOptions: options =>
+    {
+        string signingKey = builder.Configuration.GetValue<string>(key: "Settings:Jwt:SigningKey")!;
+
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero,
+            IssuerSigningKey = new SymmetricSecurityKey(key: Encoding.UTF8.GetBytes(s: signingKey))
+        };
+    });
+
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 WebApplication app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -48,8 +77,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
