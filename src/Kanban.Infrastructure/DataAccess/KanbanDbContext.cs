@@ -23,19 +23,19 @@ public class KanbanDbContext(DbContextOptions options) : DbContext(options: opti
         
         modelBuilder.Entity<Board>()
             .HasMany(navigationExpression: b => b.Columns)
-            .WithOne()
+            .WithOne(navigationExpression: c => c.Board)
             .HasForeignKey(foreignKeyExpression: c => c.BoardId)
             .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Column>()
             .HasMany(navigationExpression: c => c.Tasks)
-            .WithOne()
+            .WithOne(navigationExpression: t => t.Column)
             .HasForeignKey(foreignKeyExpression: t => t.ColumnId)
             .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
 
         modelBuilder.Entity<TaskEntity>()
             .HasMany(navigationExpression: t => t.SubTasks)
-            .WithOne()
+            .WithOne(navigationExpression: s => s.Task)
             .HasForeignKey(foreignKeyExpression: s => s.TaskId)
             .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
     }

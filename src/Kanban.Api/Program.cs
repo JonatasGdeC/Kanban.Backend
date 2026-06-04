@@ -4,7 +4,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(configurationManager: builder.Configuration);
 
 WebApplication app = builder.Build();
 
