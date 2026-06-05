@@ -10,6 +10,22 @@ using Microsoft.OpenApi;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
+const string corsPolicyName = "Frontend";
+
+builder.Services.AddCors(setupAction: options =>
+{
+    options.AddPolicy(name: corsPolicyName, configurePolicy: policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:5072"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
 builder.Services.AddOpenApi();
 builder.Services.AddInfrastructure(configurationManager: builder.Configuration);
 builder.Services.AddApplication();
@@ -66,6 +82,8 @@ builder.Services.AddAuthentication(configureOptions: options =>
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
 WebApplication app = builder.Build();
+
+app.UseCors(policyName: corsPolicyName);
 
 app.UseAuthentication();
 app.UseAuthorization();
