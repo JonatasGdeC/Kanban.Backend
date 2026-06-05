@@ -1,3 +1,7 @@
+using Kanban.Application.UseCase.User.Delete;
+using Kanban.Application.UseCase.User.Login;
+using Kanban.Application.UseCase.User.Register;
+using Kanban.Application.UseCase.User.Update;
 using Kanban.Application.UseCase.Board.Delete;
 using Kanban.Application.UseCase.Board.GetAll;
 using Kanban.Application.UseCase.Board.GetById;
@@ -17,6 +21,7 @@ using Kanban.Application.UseCase.SubTask.Delete;
 using Kanban.Application.UseCase.SubTask.GetAll;
 using Kanban.Application.UseCase.SubTask.Register;
 using Kanban.Application.UseCase.SubTask.Update;
+using Kanban.Application.UseCase.User.UpdatePassword;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kanban.Application;
@@ -36,6 +41,12 @@ public static class DependencyInjection
 
     private static void AddUseCases(this IServiceCollection services)
     {
+        services.AddScoped<IDeleteUserUseCase, DeleteUserUseCase>();
+        services.AddScoped<ILoginUseCase, LoginUseCase>();
+        services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
+        services.AddScoped<IUpdatePasswordUseCase, UpdatePasswordUseCase>();
+
         services.AddScoped<IDeleteBoardUseCase, DeleteBoardUseCase>();
         services.AddScoped<IGetAllBoardsUseCase, GetAllBoardsUseCase>();
         services.AddScoped<IGetBoardByIdUseCase, GetBoardByIdUseCase>();

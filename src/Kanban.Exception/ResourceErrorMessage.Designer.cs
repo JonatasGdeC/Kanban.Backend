@@ -114,6 +114,42 @@ namespace Kanban.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email already in use..
+        /// </summary>
+        public static string EMAIL_ALREADY_EXISTS {
+            get {
+                return ResourceManager.GetString("EMAIL_ALREADY_EXISTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is invalid..
+        /// </summary>
+        public static string EMAIL_INVALID {
+            get {
+                return ResourceManager.GetString("EMAIL_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is required..
+        /// </summary>
+        public static string EMAIL_IS_REQUIRED {
+            get {
+                return ResourceManager.GetString("EMAIL_IS_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email or password..
+        /// </summary>
+        public static string INVALID_LOGIN {
+            get {
+                return ResourceManager.GetString("INVALID_LOGIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name is required..
         /// </summary>
         public static string NAME_IS_REQUIRED {
@@ -137,6 +173,69 @@ namespace Kanban.Exception {
         public static string NAME_MINIMUM_LENGTH {
             get {
                 return ResourceManager.GetString("NAME_MINIMUM_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Old password is invalid..
+        /// </summary>
+        public static string OLD_PASSWORD_INVALID {
+            get {
+                return ResourceManager.GetString("OLD_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required..
+        /// </summary>
+        public static string PASSWORD_IS_REQUIRED {
+            get {
+                return ResourceManager.GetString("PASSWORD_IS_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 characters..
+        /// </summary>
+        public static string PASSWORD_MINIMUM_LENGTH {
+            get {
+                return ResourceManager.GetString("PASSWORD_MINIMUM_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain lowercase letter..
+        /// </summary>
+        public static string PASSWORD_MUST_CONTAIN_LOWERCASE_LETTER {
+            get {
+                return ResourceManager.GetString("PASSWORD_MUST_CONTAIN_LOWERCASE_LETTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain number..
+        /// </summary>
+        public static string PASSWORD_MUST_CONTAIN_NUMBER {
+            get {
+                return ResourceManager.GetString("PASSWORD_MUST_CONTAIN_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain special character.
+        /// </summary>
+        public static string PASSWORD_MUST_CONTAIN_SPECIAL_CHARACTER {
+            get {
+                return ResourceManager.GetString("PASSWORD_MUST_CONTAIN_SPECIAL_CHARACTER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain uppercase letter..
+        /// </summary>
+        public static string PASSWORD_MUST_CONTAIN_UPPERCASE_LETTER {
+            get {
+                return ResourceManager.GetString("PASSWORD_MUST_CONTAIN_UPPERCASE_LETTER", resourceCulture);
             }
         }
         

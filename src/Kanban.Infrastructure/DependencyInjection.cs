@@ -3,6 +3,7 @@ using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Repositories.SubTask;
 using Kanban.Domain.Repositories.Task;
+using Kanban.Domain.Repositories.User;
 using Kanban.Domain.Security.Cryptography;
 using Kanban.Domain.Security.Tokens;
 using Kanban.Domain.Services.LoggedUser;
@@ -46,6 +47,8 @@ public static class DependencyInjection
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUserReadRepository, UserRepository>();
+        services.AddScoped<IUserWriteRepository, UserRepository>();
         services.AddScoped<IBoardReadRepository, BoardRepository>();
         services.AddScoped<IBoardWriteRepository, BoardRepository>();
         services.AddScoped<IColumnReadRepository, ColumnRepository>();
