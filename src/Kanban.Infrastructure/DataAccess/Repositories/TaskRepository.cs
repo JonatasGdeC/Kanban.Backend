@@ -41,7 +41,6 @@ public class TaskRepository(KanbanDbContext context) : ITaskReadRepository, ITas
 
     public async Task<bool> ExistsTaskInPosition(Guid columnId, int position, Guid ignoreTaskId)
     {
-        return await context.Tasks.AsNoTracking()
-            .AnyAsync(predicate: task => task.ColumnId == columnId && task.Order == position && task.Id != ignoreTaskId);
+        return await context.Tasks.AsNoTracking().AnyAsync(predicate: task => task.ColumnId == columnId && task.Order == position && task.Id != ignoreTaskId);
     }
 }

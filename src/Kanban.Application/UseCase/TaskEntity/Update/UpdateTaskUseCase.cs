@@ -45,7 +45,7 @@ public class UpdateTaskUseCase(
             throw new NotFoundException(message: ResourceErrorMessage.TASK_NOT_FOUND);
         }
 
-        bool existsTaskInPosition = await readRepository.ExistsTaskInPosition(columnId: task.ColumnId, position: request.Order, ignoreTaskId: id);
+        bool existsTaskInPosition = await readRepository.ExistsTaskInPosition(columnId: task.ColumnId, position: request.Order, ignoreTaskId: task.Id);
         if (existsTaskInPosition)
         {
             throw new ErrorOnValidationException(errorsMessages: [ResourceErrorMessage.TASK_ALREADY_IN_POSITION]);
