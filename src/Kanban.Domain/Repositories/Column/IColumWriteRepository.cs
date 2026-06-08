@@ -5,7 +5,7 @@ using Entities;
 public interface IColumWriteRepository
 {
     Task Add(Column column);
-    void Update(Column column);
+    Task Update(Column column);
     void Delete(Column column);
     Task<Column?> GetById(Guid id, Guid userId);
 }

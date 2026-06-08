@@ -23,7 +23,7 @@ public class UpdateColumnUseCase(
 
         mapper.Map(source: request, destination: column);
         
-        writeRepository.Update(column: column);
+        await writeRepository.Update(column: column);
         await unitOfWork.Commit();
     }
 
@@ -45,11 +45,11 @@ public class UpdateColumnUseCase(
             throw new NotFoundException(message: ResourceErrorMessage.COLUMN_NOT_FOUND);
         }
 
-        bool existsColumnThisPosition = await readRepository.ExistsColumnInPosition(boardId: column.BoardId, position: request.Order, ignoreColumnId: id);
-        if (existsColumnThisPosition)
-        {
-            throw new ErrorOnValidationException(errorsMessages: [ResourceErrorMessage.COLUMN_ALREADY_IN_POSITION]);
-        }
+        // bool existsColumnThisPosition = await readRepository.ExistsColumnInPosition(boardId: column.BoardId, position: request.Order, ignoreColumnId: column.Id);
+        // if (existsColumnThisPosition)
+        // {
+        //     throw new ErrorOnValidationException(errorsMessages: [ResourceErrorMessage.COLUMN_ALREADY_IN_POSITION]);
+        // }
         
         return column;
     }
