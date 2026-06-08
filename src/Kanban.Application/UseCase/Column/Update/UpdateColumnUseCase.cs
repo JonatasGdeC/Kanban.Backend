@@ -12,7 +12,6 @@ using Domain.Entities;
 
 public class UpdateColumnUseCase(
     IColumWriteRepository writeRepository,
-    IColumnReadRepository readRepository,
     ILoggedUser loggedUser,
     IMapper mapper,
     IUnitOfWork unitOfWork) : IUpdateColumnUseCase
@@ -44,12 +43,6 @@ public class UpdateColumnUseCase(
         {
             throw new NotFoundException(message: ResourceErrorMessage.COLUMN_NOT_FOUND);
         }
-
-        // bool existsColumnThisPosition = await readRepository.ExistsColumnInPosition(boardId: column.BoardId, position: request.Order, ignoreColumnId: column.Id);
-        // if (existsColumnThisPosition)
-        // {
-        //     throw new ErrorOnValidationException(errorsMessages: [ResourceErrorMessage.COLUMN_ALREADY_IN_POSITION]);
-        // }
         
         return column;
     }
