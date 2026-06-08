@@ -12,8 +12,5 @@ public class TaskValidator : AbstractValidator<RegisterTaskRequest>
             .NotEmpty().WithMessage(errorMessage: ResourceErrorMessage.NAME_IS_REQUIRED)
             .MinimumLength(minimumLength: 3).WithMessage(errorMessage: ResourceErrorMessage.NAME_MINIMUM_LENGTH)
             .MaximumLength(maximumLength: 200).WithMessage(errorMessage: ResourceErrorMessage.NAME_MAXIMUM_LENGTH);
-        
-        RuleFor(expression: request => request.Status)
-            .IsInEnum().WithMessage(errorMessage: ResourceErrorMessage.STATUS_INVALID);
     }
 }

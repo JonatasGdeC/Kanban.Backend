@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation.Results;
 using Kanban.Communication.Requests.Task;
 using Kanban.Domain.Repositories;
+using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Repositories.Task;
 using Kanban.Domain.Services.LoggedUser;
 using Kanban.Exception;
@@ -13,6 +14,7 @@ using Domain.Entities;
 public class UpdateTaskUseCase(
     ITaskWriteRepository writeRepository,
     ITaskReadRepository readRepository,
+    IColumnReadRepository readColumnRepository,
     ILoggedUser loggedUser,
     IMapper mapper,
     IUnitOfWork unitOfWork) : IUpdateTaskUseCase
@@ -44,8 +46,14 @@ public class UpdateTaskUseCase(
         {
             throw new NotFoundException(message: ResourceErrorMessage.TASK_NOT_FOUND);
         }
+        
+        Column? column = await readColumnRepository.GetById(id: request.ColumnId, userId: user.Id);
+        if (column == null)
+        {
+            throw new NotFoundException(message: ResourceErrorMessage.COLUMN_NOT_FOUND);
+        }
 
-        bool existsTaskInPosition = await readRepository.ExistsTaskInPosition(columnId: task.ColumnId, position: request.Order, ignoreTaskId: task.Id);
+        bool existsTaskInPosition = await readRepository.ExistsTaskInPosition(columnId: request.ColumnId, position: request.Order, ignoreTaskId: task.Id);
         if (existsTaskInPosition)
         {
             throw new ErrorOnValidationException(errorsMessages: [ResourceErrorMessage.TASK_ALREADY_IN_POSITION]);
