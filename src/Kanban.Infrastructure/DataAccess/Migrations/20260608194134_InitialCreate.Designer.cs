@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Kanban.Infrastructure.DataAccess.Migrations
 {
     [DbContext(typeof(KanbanDbContext))]
-    [Migration("20260604002352_InitialCreate")]
+    [Migration("20260608194134_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -112,9 +112,6 @@ namespace Kanban.Infrastructure.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<int>("Order")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

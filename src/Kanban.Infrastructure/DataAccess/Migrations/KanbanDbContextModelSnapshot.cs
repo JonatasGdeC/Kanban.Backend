@@ -111,9 +111,6 @@ namespace Kanban.Infrastructure.DataAccess.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ColumnId");

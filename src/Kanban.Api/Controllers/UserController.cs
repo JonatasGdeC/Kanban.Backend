@@ -1,8 +1,10 @@
 using Kanban.Application.UseCase.User.Delete;
+using Kanban.Application.UseCase.User.Get;
 using Kanban.Application.UseCase.User.Login;
 using Kanban.Application.UseCase.User.Register;
 using Kanban.Application.UseCase.User.Update;
 using Kanban.Application.UseCase.User.UpdatePassword;
+using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.User;
 using Kanban.Communication.Responses;
 using Kanban.Communication.Responses.User;
@@ -54,6 +56,15 @@ public class UserController : ControllerBase
     {
         await useCase.Execute(request: request);
         return NoContent();
+    }
+    
+    [HttpGet]
+    [Authorize]
+    [ProducesResponseType(type: typeof(UserDto), statusCode: StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get([FromServices] IGetUserUseCase useCase)
+    {
+        UserDto user = await useCase.Execute();
+        return Ok(value: user);
     }
 
     [HttpDelete]
