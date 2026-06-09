@@ -1,4 +1,5 @@
 using Kanban.Application.UseCase.User.Delete;
+using Kanban.Application.UseCase.User.ForgotPassword;
 using Kanban.Application.UseCase.User.Get;
 using Kanban.Application.UseCase.User.Login;
 using Kanban.Application.UseCase.User.Register;
@@ -36,6 +37,16 @@ public class UserController : ControllerBase
     {
         LoginResponse response = await useCase.Execute(request: request);
         return Ok(value: response);
+    }
+    
+    [HttpPost]
+    [Route(template: "forgot-password")]
+    [AllowAnonymous]
+    [ProducesResponseType(statusCode: StatusCodes.Status200OK)]
+    public async Task<IActionResult> ForgotPassword([FromServices] IForgotPassword useCase, [FromBody] ForgotPasswordRequest request)
+    {
+        await useCase.Execute(request: request);
+        return Ok();
     }
 
     [HttpPut]

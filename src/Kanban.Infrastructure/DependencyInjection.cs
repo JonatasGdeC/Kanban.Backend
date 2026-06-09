@@ -7,10 +7,12 @@ using Kanban.Domain.Repositories.User;
 using Kanban.Domain.Security.Cryptography;
 using Kanban.Domain.Security.Tokens;
 using Kanban.Domain.Services.LoggedUser;
+using Kanban.Domain.Services.MailKit;
 using Kanban.Infrastructure.DataAccess;
 using Kanban.Infrastructure.DataAccess.Repositories;
 using Kanban.Infrastructure.Security.Tokens;
 using Kanban.Infrastructure.Services.LoggedUser;
+using Kanban.Infrastructure.Services.MailKit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +27,9 @@ public static class DependencyInjection
         AddRepositories(services: services);
         AddDbContext(services: services, connectionString: configurationManager.GetConnectionString(name: "connection")!);
         AddToken(services: services, configurationManager: configurationManager);
+        AddEmailSettings(services: services, configurationManager: configurationManager);
+        
+        
         
         services.AddScoped<IPasswordEncrypter, BCrypt>();
         services.AddScoped<ILoggedUser, LoggedUser>();
@@ -33,6 +38,14 @@ public static class DependencyInjection
     private static void AddDbContext(IServiceCollection services, string connectionString)
     {
         services.AddDbContext<KanbanDbContext>(optionsAction: options => options.UseNpgsql(connectionString: connectionString));
+    }
+
+    private static void AddEmailSettings(IServiceCollection services, IConfigurationManager configurationManager)
+    {
+        IConfigurationSection emailSettings = configurationManager.GetSection(key: "EmailSettings");
+        services.Configure<EmailSettings>(config: emailSettings);
+        
+        services.AddScoped<IEmailService, EmailService>();
     }
     
     private static void AddToken(IServiceCollection services, IConfigurationManager configurationManager)
