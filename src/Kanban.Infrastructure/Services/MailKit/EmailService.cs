@@ -8,7 +8,7 @@ namespace Kanban.Infrastructure.Services.MailKit;
 
 public class EmailService(IOptions<EmailSettings> settings) : IEmailService
 {
-    public async Task SendPasswordResetCode(string to, string userName, int code)
+    public async Task SendPasswordResetCode(string to, string userName, string code)
     {
         MimeMessage message = new();
 

@@ -4,12 +4,14 @@ using Kanban.Domain.Repositories.Column;
 using Kanban.Domain.Repositories.SubTask;
 using Kanban.Domain.Repositories.Task;
 using Kanban.Domain.Repositories.User;
+using Kanban.Domain.Security.CodeGenerator;
 using Kanban.Domain.Security.Cryptography;
 using Kanban.Domain.Security.Tokens;
 using Kanban.Domain.Services.LoggedUser;
 using Kanban.Domain.Services.MailKit;
 using Kanban.Infrastructure.DataAccess;
 using Kanban.Infrastructure.DataAccess.Repositories;
+using Kanban.Infrastructure.Security.CodeGenerator;
 using Kanban.Infrastructure.Security.Tokens;
 using Kanban.Infrastructure.Services.LoggedUser;
 using Kanban.Infrastructure.Services.MailKit;
@@ -46,6 +48,7 @@ public static class DependencyInjection
         services.Configure<EmailSettings>(config: emailSettings);
         
         services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<ICodeGenerator, CodeGenerator>();
     }
     
     private static void AddToken(IServiceCollection services, IConfigurationManager configurationManager)
