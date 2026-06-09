@@ -18,7 +18,7 @@ public class RegisterUserUseCase(
     IUserReadRepository readRepository,
     IUnitOfWork unitOfWork,
     IMapper mapper,
-    IPasswordEncrypter passwordEncrypter,
+    IEncrypter passwordEncrypter,
     IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
 {
     public async Task<RegisteredUserResponse> Execute(RegisterUserRequest request)
@@ -26,7 +26,7 @@ public class RegisterUserUseCase(
         await Validate(request: request);
 
         User user = mapper.Map<User>(source: request);
-        user.Password = passwordEncrypter.Encrypt(password: request.Password);
+        user.Password = passwordEncrypter.Encrypt(value: request.Password);
 
         await writeRepository.Add(user: user);
         await unitOfWork.Commit();

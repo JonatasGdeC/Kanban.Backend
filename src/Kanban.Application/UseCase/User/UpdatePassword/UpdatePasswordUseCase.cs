@@ -12,7 +12,7 @@ using Domain.Entities;
 
 public class UpdatePasswordUseCase(
     ILoggedUser loggedUser,
-    IPasswordEncrypter encrypter,
+    IEncrypter encrypter,
     IUserWriteRepository writeRepository,
     IUnitOfWork unitOfWork) : IUpdatePasswordUseCase
 {
@@ -22,7 +22,7 @@ public class UpdatePasswordUseCase(
         
         Validate(request: request, user: user);
         
-        user.Password = encrypter.Encrypt(password: request.NewPassword);
+        user.Password = encrypter.Encrypt(value: request.NewPassword);
         writeRepository.Update(user: user);
         await unitOfWork.Commit();
     }
@@ -37,7 +37,7 @@ public class UpdatePasswordUseCase(
             throw new ErrorOnValidationException(errorsMessages: errors);
         }
         
-        bool passwordMatch = encrypter.Verify(password: request.OldPassword, hash: user.Password);
+        bool passwordMatch = encrypter.Verify(value: request.OldPassword, hash: user.Password);
         if (!passwordMatch)
         {
             throw new BadRequestException(message: ResourceErrorMessage.OLD_PASSWORD_INVALID);

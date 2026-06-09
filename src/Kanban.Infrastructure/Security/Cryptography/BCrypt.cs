@@ -3,12 +3,12 @@ using BC = BCrypt.Net.BCrypt;
 
 namespace Kanban.Infrastructure.Security.Cryptography;
 
-public class BCrypt : IPasswordEncrypter
+public class BCrypt : IEncrypter
 {
-    public string Encrypt(string password)
+    public string Encrypt(string value)
     {
-        return BC.HashPassword(inputKey: password);
+        return BC.HashPassword(inputKey: value);
     }
 
-    public bool Verify(string password, string hash) => BC.Verify(text: password, hash: hash);
+    public bool Verify(string value, string hash) => BC.Verify(text: value, hash: hash);
 }

@@ -42,11 +42,11 @@ public class UserController : ControllerBase
     [HttpPost]
     [Route(template: "forgot-password")]
     [AllowAnonymous]
-    [ProducesResponseType(statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
     public async Task<IActionResult> ForgotPassword([FromServices] IForgotPassword useCase, [FromBody] ForgotPasswordRequest request)
     {
         await useCase.Execute(request: request);
-        return Ok();
+        return NoContent();
     }
 
     [HttpPut]

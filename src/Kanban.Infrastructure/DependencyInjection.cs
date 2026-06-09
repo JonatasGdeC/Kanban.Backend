@@ -1,6 +1,7 @@
 using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.Boad;
 using Kanban.Domain.Repositories.Column;
+using Kanban.Domain.Repositories.PasswordResetCode;
 using Kanban.Domain.Repositories.SubTask;
 using Kanban.Domain.Repositories.Task;
 using Kanban.Domain.Repositories.User;
@@ -33,7 +34,7 @@ public static class DependencyInjection
         
         
         
-        services.AddScoped<IPasswordEncrypter, BCrypt>();
+        services.AddScoped<IEncrypter, BCrypt>();
         services.AddScoped<ILoggedUser, LoggedUser>();
     }
 
@@ -73,5 +74,6 @@ public static class DependencyInjection
         services.AddScoped<ITaskWriteRepository, TaskRepository>();
         services.AddScoped<ISubTaskReadRepository, SubTaskRepository>();
         services.AddScoped<ISubTaskWriteRepository, SubTaskRepository>();
+        services.AddScoped<IPasswordResetCodeRepository, PasswordResetCodeRepository>();
     }
 }

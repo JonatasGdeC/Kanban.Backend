@@ -10,6 +10,7 @@ public class KanbanDbContext(DbContextOptions options) : DbContext(options: opti
     public DbSet<Column> Columns { get; set; }
     public DbSet<TaskEntity> Tasks { get; set; }
     public DbSet<SubTask> SubTasks { get; set; }
+    public DbSet<PasswordResetCode> PasswordResetCodes { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

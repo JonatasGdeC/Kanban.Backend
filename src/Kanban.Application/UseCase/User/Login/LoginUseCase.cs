@@ -12,7 +12,7 @@ using Domain.Entities;
 
 public class LoginUseCase(
     IUserReadRepository readRepository,
-    IPasswordEncrypter passwordEncrypter,
+    IEncrypter passwordEncrypter,
     IAccessTokenGenerator tokenGenerator,
     IMapper mapper) : ILoginUseCase
 {
@@ -20,7 +20,7 @@ public class LoginUseCase(
     {
         User? user = await readRepository.GetByEmail(email: request.Email);
 
-        if (user == null || !passwordEncrypter.Verify(password: request.Password, hash: user.Password))
+        if (user == null || !passwordEncrypter.Verify(value: request.Password, hash: user.Password))
         {
             throw new InvalidLoginException();
         }
