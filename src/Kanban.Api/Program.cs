@@ -4,6 +4,7 @@ using Kanban.Api.Token;
 using Kanban.Application;
 using Kanban.Domain.Security.Tokens;
 using Kanban.Infrastructure;
+using Kanban.Infrastructure.DataAccess.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -100,4 +101,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
+await MigrateDatabase(); 
+
 app.Run();
+
+async Task MigrateDatabase()  
+{  
+    await using AsyncServiceScope scope = app.Services.CreateAsyncScope();  
+    await DataBaseMigration.MigrateDatabase(serviceProvider: scope.ServiceProvider);  
+}
