@@ -2,7 +2,7 @@ namespace Kanban.Communication.TemplatesEmail;
 
 public static class WelcomeTemplate
 {
-    public static string Execute(string to, string userName)
+    public static string Execute(string userName)
     {
         return $$"""
                  <!DOCTYPE html>

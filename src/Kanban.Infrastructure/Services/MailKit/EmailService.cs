@@ -46,7 +46,7 @@ public class EmailService(IOptions<EmailSettings> settings) : IEmailService
 
         message.Body = new TextPart(subtype: "html")
         {
-            Text = WelcomeTemplate.Execute(to: to, userName: userName)
+            Text = WelcomeTemplate.Execute(userName: userName)
         };
 
         using SmtpClient smtp = new();
