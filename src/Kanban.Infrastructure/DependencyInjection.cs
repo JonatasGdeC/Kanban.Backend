@@ -29,10 +29,9 @@ public static class DependencyInjection
     {
         AddRepositories(services: services);
         AddDbContext(services: services, connectionString: configurationManager.GetConnectionString(name: "connection")!);
-        AddToken(services: services, configurationManager: configurationManager);
+        AddUserToken(services: services, configurationManager: configurationManager);
         AddEmailSettings(services: services, configurationManager: configurationManager);
-        
-        
+        AddPasswordResetToken(services: services, configurationManager: configurationManager);
         
         services.AddScoped<IEncrypter, BCrypt>();
         services.AddScoped<ILoggedUser, LoggedUser>();
@@ -52,13 +51,22 @@ public static class DependencyInjection
         services.AddScoped<ICodeGenerator, CodeGenerator>();
     }
     
-    private static void AddToken(IServiceCollection services, IConfigurationManager configurationManager)
+    private static void AddUserToken(IServiceCollection services, IConfigurationManager configurationManager)
     {
         IConfigurationSection expirationTimeMinutes = configurationManager.GetSection(key: "Settings:Jwt:ExpiresMinutes");
         IConfigurationSection signingKey = configurationManager.GetSection(key: "Settings:Jwt:SigningKey");
 
-        services.AddScoped<IAccessTokenGenerator>(implementationFactory: _ =>
+        services.AddScoped<IAccessTokenGenerator>(implementationFactory: _ => 
             new JwtTokenGenerator(expirationTimeMinutes: uint.Parse(s: expirationTimeMinutes.Value!) , signingKey: signingKey.Value!));
+    }
+
+    private static void AddPasswordResetToken(IServiceCollection services, IConfigurationManager configurationManager)
+    {
+        IConfigurationSection expirationTimeMinutes = configurationManager.GetSection(key: "Settings:PasswordResetToken:ExpiresMinutes");
+        IConfigurationSection signingKey = configurationManager.GetSection(key: "Settings:Jwt:SigningKey");
+        
+        services.AddScoped<IPasswordResetTokenGenerator>(implementationFactory: _ =>
+            new PasswordResetTokenGenerator(expirationTimeMinutes: uint.Parse(s: expirationTimeMinutes.Value!), signingKey: signingKey.Value!));
     }
 
     private static void AddRepositories(IServiceCollection services)

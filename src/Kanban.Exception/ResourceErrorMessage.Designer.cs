@@ -78,6 +78,15 @@ namespace Kanban.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code is invalid..
+        /// </summary>
+        public static string CODE_INVALID {
+            get {
+                return ResourceManager.GetString("CODE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color must be a valid hex color (e.g. #FFF or #FFFFFF)..
         /// </summary>
         public static string COLOR_INVALID_HEX {

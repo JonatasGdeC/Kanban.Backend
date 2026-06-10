@@ -24,6 +24,7 @@ using Kanban.Application.UseCase.SubTask.Update;
 using Kanban.Application.UseCase.User.ForgotPassword;
 using Kanban.Application.UseCase.User.Get;
 using Kanban.Application.UseCase.User.UpdatePassword;
+using Kanban.Application.UseCase.User.ValidateResetCode;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kanban.Application;
@@ -50,6 +51,7 @@ public static class DependencyInjection
         services.AddScoped<IUpdatePasswordUseCase, UpdatePasswordUseCase>();
         services.AddScoped<IGetUserUseCase, GetUserUseCase>();
         services.AddScoped<IForgotPassword, ForgotPassword>();
+        services.AddScoped<IValidateResetCodeUseCase, ValidateResetCodeUseCase>();
 
         services.AddScoped<IDeleteBoardUseCase, DeleteBoardUseCase>();
         services.AddScoped<IGetAllBoardsUseCase, GetAllBoardsUseCase>();

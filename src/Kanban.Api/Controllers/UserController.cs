@@ -5,6 +5,7 @@ using Kanban.Application.UseCase.User.Login;
 using Kanban.Application.UseCase.User.Register;
 using Kanban.Application.UseCase.User.Update;
 using Kanban.Application.UseCase.User.UpdatePassword;
+using Kanban.Application.UseCase.User.ValidateResetCode;
 using Kanban.Communication.Dtos;
 using Kanban.Communication.Requests.User;
 using Kanban.Communication.Responses;
@@ -47,6 +48,17 @@ public class UserController : ControllerBase
     {
         await useCase.Execute(request: request);
         return NoContent();
+    }
+    
+    [HttpPost]
+    [Route(template: "validate-reset-code")]
+    [AllowAnonymous]
+    [ProducesResponseType(type: typeof(ValidateResetCodeResponse), statusCode: StatusCodes.Status200OK)]
+    [ProducesResponseType(type: typeof(ErrorResponse), statusCode: StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ValidateResetCode([FromServices] IValidateResetCodeUseCase useCase, [FromBody] ValidateResetCodeRequest request)
+    {
+        ValidateResetCodeResponse response = await useCase.Execute(request: request);
+        return Ok(value: response);
     }
 
     [HttpPut]
