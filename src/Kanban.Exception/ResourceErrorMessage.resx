@@ -94,7 +94,7 @@
         <value>Old password is invalid.</value>
     </data>
     <data name="CODE_INVALID" xml:space="preserve">
-        <value>Code is invalid.</value>
+        <value>Invalid or expired code.</value>
     </data>
     <data name="INVALID_TOKEN" xml:space="preserve">
         <value>Invalid or expired token.</value>

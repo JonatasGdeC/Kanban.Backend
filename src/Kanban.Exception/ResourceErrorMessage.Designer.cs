@@ -78,7 +78,7 @@ namespace Kanban.Exception {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code is invalid..
+        ///   Looks up a localized string similar to Invalid or expired code..
         /// </summary>
         public static string CODE_INVALID {
             get {
