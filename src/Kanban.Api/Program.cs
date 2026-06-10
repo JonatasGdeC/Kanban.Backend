@@ -6,6 +6,8 @@ using Kanban.Domain.Security.Tokens;
 using Kanban.Infrastructure;
 using Kanban.Infrastructure.DataAccess.Migrations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 
@@ -81,6 +83,7 @@ builder.Services.AddAuthentication(configureOptions: options =>
     });
 
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+builder.Services.AddHealthChecks();
 
 WebApplication app = builder.Build();
 
@@ -99,6 +102,17 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHealthChecks(pattern: "/Health", options: new HealthCheckOptions
+{
+    AllowCachingResponses = false,
+    ResultStatusCodes =
+    {
+        [key: HealthStatus.Healthy] = StatusCodes.Status200OK,
+        [key: HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable,
+    }
+});
+
 app.MapControllers();
 
 await MigrateDatabase(); 
