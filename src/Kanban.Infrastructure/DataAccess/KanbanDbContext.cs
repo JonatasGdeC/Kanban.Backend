@@ -39,5 +39,12 @@ public class KanbanDbContext(DbContextOptions options) : DbContext(options: opti
             .WithOne(navigationExpression: s => s.Task)
             .HasForeignKey(foreignKeyExpression: s => s.TaskId)
             .OnDelete(deleteBehavior: DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<PasswordResetCode>()
+            .HasKey(keyExpression: passwordResetCode => passwordResetCode.UserId);
+        modelBuilder.Entity<PasswordResetCode>()
+            .HasOne<User>()
+            .WithOne()
+            .HasForeignKey<PasswordResetCode>(foreignKeyExpression: passwordResetCode => passwordResetCode.UserId);
     }
 }
