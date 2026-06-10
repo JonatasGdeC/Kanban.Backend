@@ -1,4 +1,4 @@
-namespace Kanban.Infrastructure.Services.MailKit.Templetes;
+namespace Kanban.Communication.TemplatesEmail;
 
 public static class ResetPasswordTemplate
 {
@@ -212,7 +212,7 @@ public static class ResetPasswordTemplate
                      </div>
                  
                      <div class="email-footer">
-                       <p>Kanban App &mdash; Projeto de estudos &copy; 2026</p>
+                       <p>Kanban App &mdash; Projeto de estudos do <a href="https://jonatasgdec-portifolio.vercel.app/" target="_blank" style="color: #000; text-decoration: underline; font-weight: 600;">JonatasGdeC</a> &copy; {{DateTime.Now.Year}}</p>
                      </div>
                  
                    </div>

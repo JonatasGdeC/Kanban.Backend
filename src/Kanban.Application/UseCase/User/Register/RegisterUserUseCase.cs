@@ -7,6 +7,7 @@ using Kanban.Domain.Repositories;
 using Kanban.Domain.Repositories.User;
 using Kanban.Domain.Security.Cryptography;
 using Kanban.Domain.Security.Tokens;
+using Kanban.Domain.Services.MailKit;
 using Kanban.Exception;
 using Kanban.Exception.ExceptionBase;
 
@@ -19,7 +20,8 @@ public class RegisterUserUseCase(
     IUnitOfWork unitOfWork,
     IMapper mapper,
     IEncrypter passwordEncrypter,
-    IAccessTokenGenerator tokenGenerator) : IRegisterUserUseCase
+    IAccessTokenGenerator tokenGenerator,
+    IEmailService emailService) : IRegisterUserUseCase
 {
     public async Task<RegisteredUserResponse> Execute(RegisterUserRequest request)
     {
@@ -31,6 +33,8 @@ public class RegisterUserUseCase(
         await writeRepository.Add(user: user);
         await unitOfWork.Commit();
 
+        await emailService.SendWelcomeEmail(to: user.Email, userName: user.Name);
+        
         return new RegisteredUserResponse
         {
             User = mapper.Map<UserDto>(source: user),
