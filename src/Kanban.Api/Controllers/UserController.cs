@@ -3,6 +3,7 @@ using Kanban.Application.UseCase.User.ForgotPassword;
 using Kanban.Application.UseCase.User.Get;
 using Kanban.Application.UseCase.User.Login;
 using Kanban.Application.UseCase.User.Register;
+using Kanban.Application.UseCase.User.ResetPassword;
 using Kanban.Application.UseCase.User.Update;
 using Kanban.Application.UseCase.User.UpdatePassword;
 using Kanban.Application.UseCase.User.ValidateResetCode;
@@ -59,6 +60,17 @@ public class UserController : ControllerBase
     {
         ValidateResetCodeResponse response = await useCase.Execute(request: request);
         return Ok(value: response);
+    }
+    
+    [HttpPut]
+    [Route(template: "reset-password")]
+    [AllowAnonymous]
+    [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+    [ProducesResponseType(type: typeof(ErrorResponse), statusCode: StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> ResetPassword([FromServices] IResetPassword useCase, [FromBody] ResetPasswordRequest request)
+    {
+        await useCase.Execute(request: request);
+        return NoContent();
     }
 
     [HttpPut]

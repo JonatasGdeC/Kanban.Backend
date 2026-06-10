@@ -67,6 +67,8 @@ public static class DependencyInjection
         
         services.AddScoped<IPasswordResetTokenGenerator>(implementationFactory: _ =>
             new PasswordResetTokenGenerator(expirationTimeMinutes: uint.Parse(s: expirationTimeMinutes.Value!), signingKey: signingKey.Value!));
+        
+        services.AddScoped<IVerifyTokenResetCode>(implementationFactory: provider => new VerifyTokenResetCode(signingKey: signingKey.Value!));
     }
 
     private static void AddRepositories(IServiceCollection services)

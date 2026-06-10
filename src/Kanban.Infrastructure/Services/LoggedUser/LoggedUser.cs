@@ -14,8 +14,8 @@ public class LoggedUser(KanbanDbContext context, ITokenProvider tokenProvider) :
     {
         string token = tokenProvider.TokenOnRequest();
         JwtSecurityTokenHandler tokenHandler = new();
-        JwtSecurityToken? jwtSecurityToekn = tokenHandler.ReadJwtToken(token: token);
-        string userId = jwtSecurityToekn.Claims.First(predicate: claim => claim.Type == ClaimTypes.Sid).Value;
+        JwtSecurityToken? jwtSecurityToken = tokenHandler.ReadJwtToken(token: token);
+        string userId = jwtSecurityToken.Claims.First(predicate: claim => claim.Type == ClaimTypes.Sid).Value;
         
         return await context.Users.AsNoTracking().FirstAsync(predicate: user => user.Id == Guid.Parse(userId));
     }

@@ -27,29 +27,23 @@ public class ValidateResetCodeUseCase(
         PasswordResetCode passwordResetCode = await passwordResetCodeRepository.GetByUserId(userId: user.Id) ??
                                               throw new BadRequestException(message: ResourceErrorMessage.CODE_INVALID);
 
-        if (passwordResetCode.IsUsed || passwordResetCode.Attempts >= 3 || passwordResetCode.ExpiresAt <= DateTime.UtcNow)
+        if (!passwordResetCode.IsValid)
         {
             throw new BadRequestException(message: ResourceErrorMessage.CODE_INVALID);
         }
 
         bool isValidCode = encrypter.Verify(value: request.Code, hash: passwordResetCode.CodeHash);
-
         if (!isValidCode)
         {
             passwordResetCode.Attempts++;
             passwordResetCodeRepository.Update(passwordResetCode: passwordResetCode);
             await unitOfWork.Commit();
-
             throw new BadRequestException(message: ResourceErrorMessage.CODE_INVALID);
         }
 
-        passwordResetCode.UsedAt = DateTime.UtcNow;
-        passwordResetCodeRepository.Update(passwordResetCode: passwordResetCode);
-        await unitOfWork.Commit();
-
         return new ValidateResetCodeResponse
         {
-            Token = passwordResetTokenGenerator.Generate(user: user)
+            TokenResetPassword = passwordResetTokenGenerator.Generate(user: user)
         };
     }
 }

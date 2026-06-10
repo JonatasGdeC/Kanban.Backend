@@ -25,4 +25,9 @@ public class UserRepository(KanbanDbContext context) : IUserReadRepository, IUse
     {
         context.Users.Remove(entity: user);
     }
+
+    public Task<User?> GetById(Guid id)
+    {
+        return context.Users.FirstOrDefaultAsync(predicate: user => user.Id == id);
+    }
 }

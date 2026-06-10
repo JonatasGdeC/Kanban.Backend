@@ -34,11 +34,9 @@ public class ForgotPassword(
             {
                 UserId = user.Id,
                 CodeHash = encrypter.Encrypt(value: code),
-                ResetTokenHash = null,
                 Attempts = 0,
                 CreatedAt = DateTime.UtcNow,
                 ExpiresAt = DateTime.UtcNow.AddMinutes(value: 10),
-                UsedAt = null
             };
 
             await passwordResetCodeRepository.Add(passwordResetCode: passwordResetCode);
