@@ -159,6 +159,15 @@ namespace Kanban.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid or expired token..
+        /// </summary>
+        public static string INVALID_TOKEN {
+            get {
+                return ResourceManager.GetString("INVALID_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name is required..
         /// </summary>
         public static string NAME_IS_REQUIRED {
