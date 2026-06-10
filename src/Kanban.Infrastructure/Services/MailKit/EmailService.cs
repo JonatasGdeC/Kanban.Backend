@@ -1,4 +1,5 @@
 using Kanban.Domain.Services.MailKit;
+using Kanban.Infrastructure.Services.MailKit.Templetes;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -18,19 +19,7 @@ public class EmailService(IOptions<EmailSettings> settings) : IEmailService
 
         message.Body = new TextPart(subtype: "html")
         {
-            Text = $"""
-                    <h2>Olá, {userName}</h2>
-
-                    <p>Recebemos uma solicitação para redefinir sua senha.</p>
-
-                    <p>Seu código de recuperação é:</p>
-
-                    <h1>{code}</h1>
-
-                    <p>Este código expira em 10 minutos.</p>
-
-                    <p>Se você não solicitou isso, ignore este e-mail.</p>
-                    """
+            Text = ResetPasswordTemplate.Execute(username: userName, code: code)
         };
 
         using SmtpClient smtp = new();
