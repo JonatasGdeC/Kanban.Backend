@@ -36,5 +36,5 @@ jobs:
               -p 8080:8080 \
               --restart unless-stopped \
               -e ASPNETCORE_ENVIRONMENT=Production \
-              -e ConnectionStrings__connection="${{ secrets.DB_CONNECTION_STRING }}" \
+              -e ConnectionStrings__connection='${{ secrets.DB_CONNECTION_STRING }}' \
               kanban-api
