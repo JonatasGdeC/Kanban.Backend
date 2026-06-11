@@ -206,7 +206,7 @@ public static class WelcomeTemplate
                          funcionalidades disponíveis. Seu feedback é muito valioso.
                        </p>
                  
-                       <a href="#" class="email-cta" style="color: #FFF">Acessar o app</a>
+                       <a href="https://kanban-jgc.vercel.app/" target="_blank" class="email-cta" style="color: #FFF">Acessar o app</a>
                  
                        <hr class="email-divider" />
                  
