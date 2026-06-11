@@ -31,10 +31,22 @@ jobs:
 
             docker build -t kanban-api .
 
+            cat > .env << 'EOF'
+            ASPNETCORE_ENVIRONMENT=Production
+            ConnectionStrings__connection=${{ secrets.DB_CONNECTION_STRING }}
+            Settings__Jwt__SigningKey=${{ secrets.JWT_SIGNING_KEY }}
+            Settings__Jwt__ExpiresMinutes=30
+            Settings__PasswordResetToken__ExpiresMinutes=15
+            EmailSettings__Host=smtp.gmail.com
+            EmailSettings__Port=465
+            EmailSettings__Username=${{ secrets.EMAIL_USERNAME }}
+            EmailSettings__Password=${{ secrets.EMAIL_PASSWORD }}
+            EmailSettings__From=${{ secrets.EMAIL_FROM }}
+            EOF
+
             docker run -d \
               --name kanban-api \
               -p 8080:8080 \
               --restart unless-stopped \
-              -e ASPNETCORE_ENVIRONMENT=Production \
-              -e ConnectionStrings__connection='${{ secrets.DB_CONNECTION_STRING }}' \
+              --env-file .env \
               kanban-api
