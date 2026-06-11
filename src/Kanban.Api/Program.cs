@@ -22,7 +22,7 @@ builder.Services.AddCors(setupAction: options =>
         policy
             .WithOrigins(
                 "http://localhost:5072",
-                "https://kanban-jgc.vercel.app/"
+                "https://kanban-jgc.vercel.app"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -101,8 +101,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.MapHealthChecks(pattern: "/Health", options: new HealthCheckOptions
 {
