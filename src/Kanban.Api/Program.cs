@@ -21,7 +21,8 @@ builder.Services.AddCors(setupAction: options =>
     {
         policy
             .WithOrigins(
-                "http://localhost:5072"
+                "http://localhost:5072",
+                "https://kanban-jgc.vercel.app/"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
