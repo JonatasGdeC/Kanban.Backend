@@ -1,5 +1,6 @@
 using System.Text;
 using Kanban.Api.Filter;
+using Kanban.Api.Middleware;
 using Kanban.Api.Token;
 using Kanban.Application;
 using Kanban.Domain.Security.Tokens;
@@ -87,6 +88,8 @@ builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 builder.Services.AddHealthChecks();
 
 WebApplication app = builder.Build();
+
+app.UseMiddleware<CultureMiddleware>();
 
 app.UseCors(policyName: corsPolicyName);
 
