@@ -1,4 +1,6 @@
-namespace Kanban.Communication.TemplatesEmail;
+using Kanban.Communication.Email.Resource;
+
+namespace Kanban.Communication.Email;
 
 public static class WelcomeTemplate
 {
@@ -10,7 +12,7 @@ public static class WelcomeTemplate
                  <head>
                    <meta charset="UTF-8" />
                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                   <title>Bem-vindo ao Kanban</title>
+                   <title>{{ResourceEmailMessage.TITLE_WELCOME}}</title>
                    <style>
                      * { margin: 0; padding: 0; box-sizing: border-box; }
                  
@@ -192,32 +194,22 @@ public static class WelcomeTemplate
                      </div>
                  
                      <div class="email-card">
-                       <p class="email-accent">Bem-vindo</p>
-                       <h1 class="email-title">Obrigado por testar o projeto {{userName.Split(separator: " ")[0]}}!</h1>
-                 
-                       <p class="email-body">
-                         Sua conta foi criada com sucesso. Este é um <strong>projeto de estudos</strong>
-                         desenvolvido por mim (<a href="https://jonatasgdec-portifolio.vercel.app/" target="_blank" style="color: #635FC7; text-decoration: underline; font-weight: 700;">JonatasGdeC</a>) para explorar conceitos de organização e produtividade com
-                         um quadro Kanban.
-                       </p>
-                 
-                       <p class="email-body">
-                         Fique à vontade para criar boards, adicionar tarefas e testar todas as
-                         funcionalidades disponíveis. Seu feedback é muito valioso.
-                       </p>
-                 
-                       <a href="https://kanban-jgc.vercel.app/" target="_blank" class="email-cta" style="color: #FFF">Acessar o app</a>
-                 
+                       <p class="email-accent">{{ResourceEmailMessage.WELCOME_ACCENT}}</p>
+                       <h1 class="email-title">{{string.Format(format: ResourceEmailMessage.WELCOME_HEADING, arg0: userName.Split(separator: " ")[0])}}</h1>
+
+                       <p class="email-body">{{ResourceEmailMessage.WELCOME_BODY_1}}</p>
+
+                       <p class="email-body">{{ResourceEmailMessage.WELCOME_BODY_2}}</p>
+
+                       <a href="https://kanban-jgc.vercel.app/" target="_blank" class="email-cta" style="color: #FFF">{{ResourceEmailMessage.WELCOME_CTA}}</a>
+
                        <hr class="email-divider" />
-                 
-                       <p class="email-note">
-                         Este e-mail foi enviado porque você se cadastrou no Kanban App.
-                         Se não foi você, ignore esta mensagem.
-                       </p>
+
+                       <p class="email-note">{{ResourceEmailMessage.WELCOME_NOTE}}</p>
                      </div>
                  
                      <div class="email-footer">
-                       <p>Kanban App &mdash; Projeto de estudos do <a href="https://jonatasgdec-portifolio.vercel.app/" target="_blank" style="color: #000; text-decoration: underline; font-weight: 600;">JonatasGdeC</a> &copy; {{DateTime.Now.Year}}</p>
+                       <p>Kanban App &mdash; {{ResourceEmailMessage.STUDY_PROJECT}} <a href="https://jonatasgdec-portifolio.vercel.app/" target="_blank" style="color: #000; text-decoration: underline; font-weight: 600;">JonatasGdeC</a> &copy; {{DateTime.Now.Year}}</p>
                      </div>
                  
                    </div>

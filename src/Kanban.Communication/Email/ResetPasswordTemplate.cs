@@ -1,4 +1,6 @@
-namespace Kanban.Communication.TemplatesEmail;
+using Kanban.Communication.Email.Resource;
+
+namespace Kanban.Communication.Email;
 
 public static class ResetPasswordTemplate
 {
@@ -10,7 +12,7 @@ public static class ResetPasswordTemplate
                  <head>
                    <meta charset="UTF-8" />
                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                   <title>Código de recuperação — Kanban</title>
+                   <title>{{ResourceEmailMessage.TITLE_RESET_PASSWORD}}</title>
                    <style>
                      * { margin: 0; padding: 0; box-sizing: border-box; }
                  
@@ -178,41 +180,28 @@ public static class ResetPasswordTemplate
                      </div>
                  
                      <div class="email-card">
-                       <p class="email-accent">Segurança</p>
-                       <h1 class="email-title">Olá {{username.Split(separator: " ")[0]}}! Chegou seu código de recuperação</h1>
-                 
-                       <p class="email-body">
-                         Recebemos uma solicitação para redefinir a senha da sua conta.
-                         Use o código abaixo para continuar o processo.
-                       </p>
-                 
-                       <!-- Bloco do código -->
+                       <p class="email-accent">{{ResourceEmailMessage.RESET_ACCENT}}</p>
+                       <h1 class="email-title">{{string.Format(format: ResourceEmailMessage.RESET_HEADING, arg0: username.Split(separator: " ")[0])}}</h1>
+
+                       <p class="email-body">{{ResourceEmailMessage.RESET_BODY_1}}</p>
+
                        <div class="code-block">
-                         <p class="code-label">Código de verificação</p>
+                         <p class="code-label">{{ResourceEmailMessage.RESET_CODE_LABEL}}</p>
                          <p class="code-value">{{code}}</p>
-                         <p class="code-expiry">Expira em <strong>10 minutos</strong></p>
+                         <p class="code-expiry">{{ResourceEmailMessage.RESET_CODE_EXPIRY}}</p>
                        </div>
-                 
-                       <div class="email-alert">
-                         Se você não solicitou a redefinição de senha, ignore este e-mail.
-                         Sua senha permanece a mesma.
-                       </div>
-                 
-                       <p class="email-body">
-                         Por segurança, nunca compartilhe este código com ninguém. Nossa equipe
-                         jamais pedirá seu código de acesso.
-                       </p>
-                 
+
+                       <div class="email-alert">{{ResourceEmailMessage.RESET_ALERT}}</div>
+
+                       <p class="email-body">{{ResourceEmailMessage.RESET_BODY_2}}</p>
+
                        <hr class="email-divider" />
-                 
-                       <p class="email-note">
-                         Este e-mail foi gerado automaticamente. Caso tenha dúvidas, verifique
-                         as configurações da sua conta.
-                       </p>
+
+                       <p class="email-note">{{ResourceEmailMessage.RESET_NOTE}}</p>
                      </div>
                  
                      <div class="email-footer">
-                       <p>Kanban App &mdash; Projeto de estudos do <a href="https://jonatasgdec-portifolio.vercel.app/" target="_blank" style="color: #000; text-decoration: underline; font-weight: 600;">JonatasGdeC</a> &copy; {{DateTime.Now.Year}}</p>
+                       <p>Kanban App &mdash; {{ResourceEmailMessage.STUDY_PROJECT}} <a href="https://jonatasgdec-portifolio.vercel.app/" target="_blank" style="color: #000; text-decoration: underline; font-weight: 600;">JonatasGdeC</a> &copy; {{DateTime.Now.Year}}</p>
                      </div>
                  
                    </div>

@@ -1,4 +1,5 @@
-using Kanban.Communication.TemplatesEmail;
+using Kanban.Communication.Email;
+using Kanban.Communication.Email.Resource;
 using Kanban.Domain.Services.MailKit;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -15,7 +16,7 @@ public class EmailService(IOptions<EmailSettings> settings) : IEmailService
 
         message.From.Add(address: MailboxAddress.Parse(text: settings.Value.From));
         message.To.Add(address: MailboxAddress.Parse(text: to));
-        message.Subject = "Recuperação de senha";
+        message.Subject = ResourceEmailMessage.TITLE_RESET_PASSWORD;
 
         message.Body = new TextPart(subtype: "html")
         {
@@ -42,7 +43,7 @@ public class EmailService(IOptions<EmailSettings> settings) : IEmailService
 
         message.From.Add(address: MailboxAddress.Parse(text: settings.Value.From));
         message.To.Add(address: MailboxAddress.Parse(text: to));
-        message.Subject = "Bem-vindo(a) ao projeto Kanban";
+        message.Subject = ResourceEmailMessage.TITLE_WELCOME;
 
         message.Body = new TextPart(subtype: "html")
         {
