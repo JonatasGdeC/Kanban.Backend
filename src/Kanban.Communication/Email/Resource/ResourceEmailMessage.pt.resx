@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+
+    <!-- Títulos -->
+    <data name="TITLE_WELCOME" xml:space="preserve">
+        <value>Bem-vindo(a) ao projeto Kanban</value>
+    </data>
+    <data name="TITLE_RESET-PASSWORD" xml:space="preserve">
+        <value>Recuperação de senha</value>
+    </data>
+
+    <!-- Email de boas-vindas -->
+    <data name="WELCOME_ACCENT" xml:space="preserve">
+        <value>Bem-vindo</value>
+    </data>
+    <data name="WELCOME_HEADING" xml:space="preserve">
+        <value>Obrigado por testar o projeto {0}!</value>
+    </data>
+    <data name="WELCOME_BODY_1" xml:space="preserve">
+        <value>Sua conta foi criada com sucesso. Este é um &lt;strong&gt;projeto de estudos&lt;/strong&gt; desenvolvido por mim (&lt;a href="https://jonatasgdec-portifolio.vercel.app/" target="_blank" style="color: #635FC7; text-decoration: underline; font-weight: 700;"&gt;JonatasGdeC&lt;/a&gt;) para explorar conceitos de organização e produtividade com um quadro Kanban.</value>
+    </data>
+    <data name="WELCOME_BODY_2" xml:space="preserve">
+        <value>Fique à vontade para criar boards, adicionar tarefas e testar todas as funcionalidades disponíveis. Seu feedback é muito valioso.</value>
+    </data>
+    <data name="WELCOME_CTA" xml:space="preserve">
+        <value>Acessar o app</value>
+    </data>
+    <data name="WELCOME_NOTE" xml:space="preserve">
+        <value>Este e-mail foi enviado porque você se cadastrou no Kanban App. Se não foi você, ignore esta mensagem.</value>
+    </data>
+    <data name="STUDY_PROJECT" xml:space="preserve">
+        <value>Projeto de estudos do</value>
+    </data>
+
+    <!-- Email de recuperação de senha -->
+    <data name="RESET_ACCENT" xml:space="preserve">
+        <value>Segurança</value>
+    </data>
+    <data name="RESET_HEADING" xml:space="preserve">
+        <value>Olá {0}! Chegou seu código de recuperação</value>
+    </data>
+    <data name="RESET_BODY_1" xml:space="preserve">
+        <value>Recebemos uma solicitação para redefinir a senha da sua conta. Use o código abaixo para continuar o processo.</value>
+    </data>
+    <data name="RESET_CODE_LABEL" xml:space="preserve">
+        <value>Código de verificação</value>
+    </data>
+    <data name="RESET_CODE_EXPIRY" xml:space="preserve">
+        <value>Expira em &lt;strong&gt;10 minutos&lt;/strong&gt;</value>
+    </data>
+    <data name="RESET_ALERT" xml:space="preserve">
+        <value>Se você não solicitou a redefinição de senha, ignore este e-mail. Sua senha permanece a mesma.</value>
+    </data>
+    <data name="RESET_BODY_2" xml:space="preserve">
+        <value>Por segurança, nunca compartilhe este código com ninguém. Nossa equipe jamais pedirá seu código de acesso.</value>
+    </data>
+    <data name="RESET_NOTE" xml:space="preserve">
+        <value>Este e-mail foi gerado automaticamente. Caso tenha dúvidas, verifique as configurações da sua conta.</value>
+    </data>
+</root>
